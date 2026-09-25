@@ -1,0 +1,24 @@
+name: Lint
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --only-group lint
+      - name: ruff check
+        run: uv run --no-sync ruff check .
+      - name: ruff format
+        run: uv run --no-sync ruff format --check .
+      - name: pylint
+        if: ${{ !cancelled() }}
+        run: uv run --no-sync pylint $(git ls-files '*.py')
+      - name: pyrefly
+        if: ${{ !cancelled() }}
+        run: uv run --no-sync pyrefly check
