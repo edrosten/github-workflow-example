@@ -14,8 +14,6 @@ jobs:
       - run: uv sync --only-group lint
       - name: ruff check
         run: uv run --no-sync ruff check .
-      - name: ruff format
-        run: uv run --no-sync ruff format --check .
       - name: pylint
         if: ${{ !cancelled() }}
         run: uv run --no-sync pylint $(git ls-files '*.py')

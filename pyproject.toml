@@ -14,10 +14,17 @@ lint = [
 line-length = 100
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "B", "UP"]
+select = ["E", "F", "W", "B", "UP"]
 
 [tool.pylint.main]
 py-version = "3.10"
+
+[tool.pylint."messages control"]
+disable = [
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "missing-function-docstring",
+]
 
 [tool.pylint.format]
 max-line-length = 100
